@@ -1,35 +1,3 @@
-# ---------------------------------------------------------------------------------
-#  /\_/\  🌐 This module was loaded through https://t.me/hikkamods_bot
-# ( o.o )  🔐 Licensed under the CC BY-NC-ND 4.0.
-#  > ^ <   ⚠️ Owner of heta.hikariatama.ru doesn't take any responsibilities or intellectual property rights regarding this script
-# ---------------------------------------------------------------------------------
-# Name                                           : Randomizer
-# Description                                    : No description
-# Author                                         : D4n13l3k00
-# Commands                                       :
-# .rndint | .rndelm | .rnduser
-# ---------------------------------------------------------------------------------
-
-
-# .------.------.------.------.------.------.------.------.------.------.
-# |D.--. |4.--. |N.--. |1.--. |3.--. |L.--. |3.--. |K.--. |0.--. |0.--. |
-# |                                              :/\: | :/\: | :(): | :/\: | :(): | :/\: | :(): | :/\: | :/\: | :/\: |
-# | (__) |                                       :\/: | ()() | (__) | ()() | (__) | ()() | :\/: | :\/: | :\/: |
-# | '--'D| '--'4| '--'N| '--'1| '--'3| '--'L| '--'3| '--'K| '--'0| '--'0|
-# `------`------`------`------`------`------`------`------`------`------'
-#
-#                     Copyright 2022 t.me/D4n13l3k00
-#           Licensed under the Creative Commons CC BY-NC-ND 4.0
-#
-#                    Full license text can be found at:
-#       https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-#
-#                           Human-friendly one:
-#            https://creativecommons.org/licenses/by-nc-nd/4.0
-
-# meta developer: @D4n13l3k00
-
-
 import random
 import re
 
@@ -43,7 +11,7 @@ class RandomizerMod(loader.Module):
 
     @loader.owner
     async def rndintcmd(self, m):
-        ".rndint <int> <int> - рандомное число из заданногоо диапозона"
+        ".rndint <int> <int> - рандомное число из заданного диапазона"
         args = utils.get_args_raw(m)
         check = re.compile(r"^(\d+)\s+(\d+)$")
         if check.match(args):
@@ -52,14 +20,14 @@ class RandomizerMod(loader.Module):
                 rndint = random.randint(int(fr), int(to))
                 await m.edit(
                     self.prefix
-                    + "<b>Режим:</b> Рандомное число из диапозона\n<b>Диапозон:</b>"
+                    + "<b>Режим:</b> Рандомное число из диапазона\n<b>Диапазон:</b>"
                     f" <code>{fr}-{to}</code>\n<b>Выпало число:</b>"
                     f" <code>{rndint}</code>"
                 )
             else:
-                await m.edit(f"{self.prefix}Вася, укажи диапозон чисел!")
+                await m.edit(f"{self.prefix}Вася, укажи диапазон чисел!")
         else:
-            await m.edit(f"{self.prefix}Вася, укажи диапозон чисел!")
+            await m.edit(f"{self.prefix}Вася, укажи диапазон чисел!")
 
     @loader.owner
     async def rndelmcmd(self, m):
@@ -78,16 +46,16 @@ class RandomizerMod(loader.Module):
 
     @loader.owner
     async def rndusercmd(self, m):
-        ".rnduser - выбор рандомного юзера из чата"
+        ".rnduser <кем был/что делал> - выбор рандомного юзера из чата"
         if not m.chat:
             await m.edit(f"{self.prefix}<b>Это не чат</b>")
             return
+        args = utils.get_args_raw(m)
         users = await m.client.get_participants(m.chat)
         user = random.choice(users)
-        status = user.status if user.status else "нет статуса"
         await m.edit(
             self.prefix
             + "<b>Режим:</b> Рандомный юзер из чата\n<b>Юзер:</b> <a"
             f' href="tg://user?id={user.id}">{user.first_name}</a> |'
-            f" <code>{user.id}</code>\n<b>Кем был/Что делал:</b> {status}"
+            f" <code>{user.id}</code>\n<b>Кем был/что делал:</b> {args}"
         )
