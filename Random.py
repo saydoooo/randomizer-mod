@@ -59,3 +59,18 @@ class RandomizerMod(loader.Module):
             f' href="tg://user?id={user.id}">{user.first_name}</a> |'
             f" <code>{user.id}</code>\n<b>Кем был/что делал:</b> {args}"
         )
+    
+    @loader.owner
+    async def infacmd(self, m):
+        """.infa <запрос> - вероятность инфы"""
+        args = utils.get_args_raw(m)
+        if not args:
+            await m.edit(f"{self.prefix}Вася, укажи запрос для инфы!")
+            return
+
+        rnd_percent = random.uniform(0, 100)
+        rnd_percent_formatted = "{:.2f}".format(rnd_percent)
+        await m.edit(
+            self.prefix
+            + f'<b>Вероятность инфы:</b> "{args}" составляет <code>{rnd_percent_formatted}%</code>'
+        )
